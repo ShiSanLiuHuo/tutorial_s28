@@ -5,7 +5,7 @@ class Complex
 public:
 double real;
 double imag;
-Complex(double r = 0.0,double i = 0.0;):real(r),imag(i){}
+Complex(double r = 0.0,double i = 0.0):real(r),imag(i){}
 Complex operator - (const Complex &c){
 return Complex(real - c.real,imag - c.imag);
 }
