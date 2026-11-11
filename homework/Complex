@@ -1,0 +1,21 @@
+
+#include<iostream>
+using namespace std;
+class Complex{
+  	public:
+  		double real,imag;
+  		Complex(double r=0,double i=0) : real(r),imag(i){}
+  		Complex operator-(const Complex&c){
+  			return Complex(real - c.real , imag -c.imag);
+  		}
+};
+int main()
+{
+  	double a,b,c,d;
+  	cin >> a >> b >> c >> d;
+  	Complex c1 (a,b);
+  	Complex c2 (c,d);
+  	Complex result=c1-c2;
+  	cout << result.real << "+" << result.imag << "i" <<endl;
+  	return 0;
+}
