@@ -1,0 +1,10 @@
+all:app
+
+app: use_imagnum.o imagnum.o
+        g++ use_imagnum.o imagnum.o -o app
+
+use_imagnum.o: use_imagnum.cpp imagnum.h
+        g++ use_imagnum.cpp -c use_imagnum.o
+
+imagnum.o: imagnum.cpp imagnum.h
+        g++ imagnum.cpp -c imagnum.o
