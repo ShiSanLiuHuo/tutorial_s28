@@ -25,7 +25,7 @@
 void setMatrix(Matrix &matrix, double *values)
 {
     // set 函数
-    // matrix.set(1, 1, values[0]).set(1, 2, values[1])
+     matrix.set(1, 1, values[0]).set(1, 2, values[1]);
     //       .set(2, 1, values[2]).set(2, 2, values[3]);
 
     // 重载运算符 <<，实现矩阵的输入
@@ -38,7 +38,7 @@ void printMatrix(const Matrix &matrix)
     // matrix.print();
 
     // 重载流运算符 <<，实现矩阵的输出
-    // std::cout << matrix;
+     std::cout << matrix;
 
     // 重载运算符 ()，实现矩阵的访问
     // std::cout << matrix(1, 1) << matrix(1, 2) << std::endl
@@ -53,7 +53,7 @@ int main()
     printMatrix(m);
 
     Matrix n(2, 2);
-    setMatrix(n, { 5, 6, 7, 8 });
+    setMatrix(n, { 5, 6,7, 8 });
     std::cout << "n";
     printMatrix(n);
 
