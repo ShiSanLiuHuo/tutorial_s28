@@ -24,25 +24,25 @@
 
 void setMatrix(Matrix &matrix, double *values)
 {
-    // set 函数
-    // matrix.set(1, 1, values[0]).set(1, 2, values[1])
-    //       .set(2, 1, values[2]).set(2, 2, values[3]);
-
+    matrix.set(1,1,values[0])
+          .set(1,2,values[1])
+          .set(2,1,values[2])
+          .set(2,2,values[3]);
     // 重载运算符 <<，实现矩阵的输入
-    // matrix << values[0], values[1], values[2], values[3];
+    matrix << values[0] << values[1] << values[2] << values[3] << values[4]; // matrix << values[0], values[1], values[2], values[3];
 }
 
 void printMatrix(const Matrix &matrix)
 {
     // print 函数
-    // matrix.print();
+    matrix.print();
 
     // 重载流运算符 <<，实现矩阵的输出
-    // std::cout << matrix;
+    std::cout <<matrix;// std::cout << matrix;
 
     // 重载运算符 ()，实现矩阵的访问
-    // std::cout << matrix(1, 1) << matrix(1, 2) << std::endl
-    //           << matrix(2, 1) << matrix(2, 2) << std::endl;
+    std::cout << matrix(1,1) << matrix(1,2) << std::endl;// std::cout << matrix(1, 1) << matrix(1, 2) << std::endl
+    std::cout << matrix(2,1) << matrix(2,2) << std::endl;//           << matrix(2, 1) << matrix(2, 2) << std::endl;
 }
 
 int main()
