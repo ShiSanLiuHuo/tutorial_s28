@@ -1,3 +1,9 @@
+// C++作业，矩阵类的实现 头文件
+// (edit)author: hamocat (github: GaryGa)
+// 关注永雏塔菲谢谢喵
+// 对某些类型和参数做了必要的修改，并新增了必要的成员函数。
+// 由于原版类未提供足够参数，重载运算符<<向矩阵输入无法实现。
+// 2026.11.23
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
@@ -5,12 +11,14 @@
 
 class Matrix {
 public:
+    // 默认构造函数（hamocat新增）
+    Matrix();
     // 构造函数
     Matrix(int rows, int cols);
     // 拷贝构造函数
     Matrix(const Matrix &other);
-    // 移动构造函数，思考和拷贝构造函数的区别
-    Matrix(Matrix &&other);
+    // 移动构造函数，思考和拷贝构造函数的区别（hamocat新增noexcept）
+    Matrix(Matrix &&other)noexcept;
     // 析构函数
     ~Matrix();
 
@@ -18,50 +26,68 @@ public:
     Matrix &set(int row, int col, double value);
     // 获取矩阵元素
     double get(int row, int col) const;
+
     // 获取矩阵行
     double *getRow(int row) const;
-    // 设置矩阵行
-    Matrix &setRow(int row, double *values);
+    // 设置矩阵行（hamocat新增numValues，原因见main.cpp）
+    Matrix &setRow(int row, double *values, int numValues);
+
     // 获取矩阵列
     double *getCol(int col) const;
-    // 设置矩阵列
-    Matrix &setCol(int col, double *values);
+    // 设置矩阵列（hamocat新增numValues，原因同理见main.cpp）
+    Matrix &setCol(int col, double *values, int numValues);
+
     // 获取矩阵行数
     int getRows() const;
+    // 设置矩阵行数（hamocat新增）
+    void setRows(int rows);
+
     // 获取矩阵列数
     int getCols() const;
+    // 设置矩阵列数（hamocat新增）
+    void setCols(int cols);
+
     // 获取矩阵数据
     double **getData() const;
+    // 设置矩阵数据（hamocat新增）
+    void setData(double **data);
 
-    // 打印矩阵
-    Matrix &print() const;
+    // 打印矩阵（hamocat修改返回值为void，鉴于打印矩阵不需要返回原矩阵）
+    void print() const;
 
     // 矩阵加法
     Matrix add(const Matrix &other) const;
-    // 矩阵乘法
-    Matrix multiply(const Matrix &other) const;
+    // 矩阵减法（hamocat）
+    Matrix minus(const Matrix &other) const;
+    // 矩阵点积
+    Matrix dotProduct(const Matrix &other) const;
     // 矩阵转置
     Matrix transpose() const;
-    // 矩阵求逆
-    Matrix inverse() const;
-    // 矩阵行列式
-    double determinant() const;
     // 矩阵是否为方阵
     bool isSquare() const;
+    // bomb!!!（hamocat）
+    Matrix bomb(int row, int col)const;
+    // 矩阵行列式
+    double determinant() const;
+    // 矩阵求逆
+    Matrix inverse() const;
 
     // 重载运算符 + - * / = == !=, 实现矩阵的加减乘除赋值比较
-    Matrix operator+(const Matrix &other) const;
-    Matrix operator-(const Matrix &other) const;
-    Matrix operator-() const;
-    Matrix operator*(const Matrix &other) const;
+    friend Matrix operator+(const Matrix &thisMat,const Matrix &other);
+    friend Matrix operator-(const Matrix &thisMat,const Matrix &other);
+    friend Matrix operator-(const Matrix &thisMat);
+    friend Matrix operator*(const Matrix &thisMat, const Matrix &other);
+    friend Matrix operator*(const Matrix &thisMat, double num);
+    friend Matrix operator*(double num, const Matrix &thisMat);
     Matrix operator/(const Matrix &other) const;
-    Matrix &operator=(const Matrix &other); // 赋值运算符
-    Matrix &operator=(Matrix &&other); // 移动赋值运算符，思考和赋值运算符的区别
+    friend Matrix operator/(const Matrix &thisMat, double num);
+    Matrix &operator=(const Matrix &other); // 拷贝赋值
+    Matrix &operator=(Matrix &&other); // 移动赋值，思考和拷贝赋值的区别
     bool operator==(const Matrix &other) const;
     bool operator!=(const Matrix &other) const;
     // 重载运算符 ()，实现矩阵的访问
-    int operator()(int row, int col) const;
-    int &operator()(int row, int col);
+    double operator()(int row, int col) const;
+    double &operator()(int row, int col);
     // 重载运算符 <<，实现矩阵的输入，如：Matrix m(2, 2); m << 1, 2, 3, 4;
     Matrix &operator<<(double value);
 
@@ -69,9 +95,9 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Matrix &matrix);
 
 private:
-    int rows; // 矩阵行数
-    int cols; // 矩阵列数
-    double **data; // 矩阵数据
+    int rows_; // 矩阵行数
+    int cols_; // 矩阵列数
+    double** data_; // 矩阵数据
 };
 
 #endif // MATRIX_HPP
